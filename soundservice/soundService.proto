@@ -1,0 +1,36 @@
+syntax="proto3";
+
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/puengel/soundsgood";
+
+service AudioStream {
+  rpc GetStream (stream SampleRequest) returns (stream AudioSample);
+  rpc GetFormat (google.protobuf.Empty) returns (AudioFormat);
+}
+
+message AudioSample {
+  string Timestamp = 1;
+  repeated double Channel1 = 2;
+  repeated double Channel2 = 3;
+}
+
+message SampleRequest {
+  int32 amount = 1;
+}
+
+message AudioFormat {
+  int32 SampleRate = 1;
+  int32 NumChannels = 2;
+  int32 Precision = 3;
+}
+
+// message AudioFormat {
+//   int32 AverageBytesPerSecond = 1;
+//   int32 BitsPerSample = 2;
+//   int32 BlockAlign = 3;
+//   int32 Channels = 4;
+//   int32 ExtraSize = 5;
+//   int32 SampleRate = 6;
+//   string Encoding = 7;
+// }
